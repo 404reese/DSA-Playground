@@ -60,7 +60,6 @@ struct Stack* stack = createStack(100);
     printf("%d popped from stack\n", pop(stack)); 
 return 0; 
 }return stack->top == -1; 
-} 
 // Function to add an item to stack. It increases top by 1 
 void push(struct Stack* stack, int item) 
 { 
