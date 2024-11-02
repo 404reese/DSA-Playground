@@ -1,94 +1,74 @@
- // C program for array implementation of stack 
-#include <limits.h> 
-#include <stdio.h> 
-#include <stdlib.h> 
-// A structure to represent a stack 
-struct Stack { 
-    int top; 
-    unsigned capacity; 
-    int* array; 
-}; 
-// function to create a stack of given capacity. It initializes size of 
-// stack as 0 
-struct Stack* createStack(unsigned capacity) 
-{ 
-    struct Stack* stack = (struct Stack*)malloc(sizeof(struct Stack)); 
-    stack->capacity = capacity; 
-    stack->top = -1; 
-    stack->array = (int*)malloc(stack->capacity * sizeof(int)); 
-    return stack; 
-} 
-// Stack is full when top is equal to the last index 
-int isFull(struct Stack* stack) 
-{ 
-    return stack->top == stack->capacity - 1; 
-} 
-// Stack is empty when top is equal to -1 
-int isEmpty(struct Stack* stack) 
-{
-    return stack->top == -1; 
-} 
-// Function to add an item to stack. It increases top by 1 
-void push(struct Stack* stack, int item) 
-{ 
-if (isFull(stack)) 
-return; 
-    stack->array[++stack->top] = item; 
-    printf("%d pushed to stack\n", item); 
-} 
-// Function to remove an item from stack. It decreases top by 1 
-int pop(struct Stack* stack) 
-{ 
-if (isEmpty(stack)) 
-return INT_MIN; 
-return stack->array[stack->top--]; 
-} 
-// Function to return the top from stack without removing it 
-int peek(struct Stack* stack) 
-{ 
-if (isEmpty(stack)) 
-return INT_MIN; 
-return stack->array[stack->top]; 
-} 
-// Driver program to test above functions 
-int main() 
-{ 
-struct Stack* stack = createStack(100); 
-    push(stack, 10); 
-    push(stack, 20); 
-    push(stack, 30); 
-    printf("%d popped from stack\n", pop(stack)); 
-return 0; 
-}return stack->top == -1; 
-// Function to add an item to stack. It increases top by 1 
-void push(struct Stack* stack, int item) 
-{ 
-if (isFull(stack)) 
-return; 
-    stack->array[++stack->top] = item; 
-    printf("%d pushed to stack\n", item); 
-} 
-// Function to remove an item from stack. It decreases top by 1 
-int pop(struct Stack* stack) 
-{ 
-if (isEmpty(stack)) 
-return INT_MIN; 
-return stack->array[stack->top--]; 
-} 
-// Function to return the top from stack without removing it 
-int peek(struct Stack* stack) 
-{ 
-if (isEmpty(stack)) 
-return INT_MIN; 
-return stack->array[stack->top]; 
-} 
-// Driver program to test above functions 
-int main() 
-{ 
-struct Stack* stack = createStack(100); 
-    push(stack, 10); 
-    push(stack, 20); 
-    push(stack, 30); 
-    printf("%d popped from stack\n", pop(stack)); 
-return 0; 
-}
+ #include <stdio.h>
+ #include <stdbool.h>
+ #define maxsize 100 // use the array size gine in the question
+ typedef struct
+ {
+    int items[maxsize];
+    int top;
+ } Stack;
+ void initStack(Stack *s)
+ {
+    s->top = -1;
+ }
+ bool isEmpty(Stack *s)
+ {
+    if (s->top == -1)
+    {
+        return 1;
+    }
+    else
+    {
+        return 0;
+    }
+ }
+ bool Push(Stack *s, int item)
+ {
+    if (s->top == maxsize)
+    {
+        printf("Stack Overflow");
+        return 0;
+    }
+    else
+    {
+        (s->top) = (s->top + 1);
+        s->items[s->top] = item;
+        return 1;
+    }
+ }
+ int Pop(Stack *s)
+ {
+    if (isEmpty(s))
+    {
+        printf("Stack Underflow\n");
+        return -1;
+    }
+    else
+    {
+	      int item = s->items[s->top];
+        s->top = s->top - 1;
+        return item;
+    }
+ }
+ int Peek(Stack *s)
+ {
+    if (isEmpty(s))
+    {
+        printf("Stack is empty");
+        return -1;
+    }
+    return s->items[s->top];
+ }
+ int main() {
+    Stack myStack;
+    initStack(&myStack);
+    Push(&myStack, 10);
+    Push(&myStack, 20);
+    Push(&myStack, 30);
+    printf("Top item: %d\n", Peek(&myStack));
+    printf("Popped item: %d\n", Pop(&myStack));
+    printf("Popped item: %d\n", Pop(&myStack));
+    printf("Popped item: %d\n", Pop(&myStack));
+    printf("Popped item: %d\n", Pop(&myStack));
+
+    return 0;
+ }
